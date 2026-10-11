@@ -1,0 +1,6 @@
+# Version: V26.284.1900
+# Home Assistant add-on repository descriptor. Add this repository's URL under
+# Settings > Add-ons > Add-on Store > three-dot menu > Repositories.
+name: RADclouds add-on repository
+url: https://github.com/mad-science-lab/RADclouds
+maintainer: mad-science-lab

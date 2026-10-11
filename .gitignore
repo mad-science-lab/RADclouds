@@ -1,0 +1,8 @@
+# Version: V26.284.1723
+config.json
+backups/
+__pycache__/
+*.pyc
+state.json
+logs/
+dist/

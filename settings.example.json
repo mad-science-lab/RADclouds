@@ -1,0 +1,17 @@
+{
+  "apex": { "host": "192.168.1.50", "username": "admin", "password": "" },
+  "enabled": true,
+  "profile_id": null,
+  "virtual_did": "",
+  "channels": {
+    "white":  { "min": 20, "max": 80 },
+    "blue":   { "min": 20, "max": 80 },
+    "rBlue":  { "min": 20, "max": 80 },
+    "green":  { "min": 20, "max": 80 },
+    "red":    { "min": 20, "max": 80 },
+    "UV":     { "min": 20, "max": 80 },
+    "wWhite": { "min": 20, "max": 80 },
+    "violet": { "min": 20, "max": 80 },
+    "end":    { "min": 20, "max": 80 }
+  }
+}

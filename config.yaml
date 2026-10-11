@@ -1,0 +1,24 @@
+# Version: V26.284.1723
+# Home Assistant add-on manifest for RADclouds.
+name: RADclouds
+version: "0.1.0"
+slug: radclouds
+description: Drifts the colors of an EcoTech Radion profile on a Neptune Apex like passing clouds while a virtual outlet is on
+url: https://github.com/mad-science-lab/RADclouds
+arch:
+  - aarch64
+  - amd64
+init: false
+startup: application
+boot: auto
+
+# The page is served through Ingress: Home Assistant's login protects it and no
+# port is published on the LAN.
+ingress: true
+ingress_port: 8789
+panel_icon: mdi:weather-partly-cloudy
+panel_title: RADclouds
+
+# Everything is configured in the web page (stored in /data/config.json).
+options: {}
+schema: {}

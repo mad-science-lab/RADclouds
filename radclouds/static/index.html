@@ -1,0 +1,357 @@
+<!-- Version: V26.284.1723 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RADclouds</title>
+<style>
+:root{
+  --bg:#f4f5f8;--card:#ffffff;--ink:#1b1e27;--muted:#636a7a;--line:#dfe2ea;
+  --accent:#3b5bdb;--accent-ink:#fff;--ok:#2b8a3e;--bad:#c92a2a;--field:#fff;--code:#eef0f6;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#0f121a;--card:#171b26;--ink:#e6e8ef;--muted:#9aa2b4;--line:#2a3040;
+  --accent:#7b93ff;--accent-ink:#0f121a;--ok:#69db7c;--bad:#ff8787;--field:#11151e;--code:#11151e;
+}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{display:flex;align-items:center;gap:14px;padding:18px 16px 6px;max-width:1100px;margin:0 auto}
+header h1{font-size:20px;margin:0;font-weight:650;letter-spacing:.2px}
+header .sub{color:var(--muted);font-size:13px}
+main{max-width:1100px;margin:0 auto;padding:8px 16px 60px;display:grid;gap:14px;grid-template-columns:1fr}
+@media (min-width:900px){main{grid-template-columns:1.6fr 1fr}.span{grid-column:1/-1}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h2{font-size:13px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin:0 0 12px;font-weight:600}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+button{font:inherit;border:1px solid var(--line);background:var(--field);color:var(--ink);padding:7px 14px;border-radius:8px;cursor:pointer}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+button:disabled{opacity:.5;cursor:wait}
+input,select{font:inherit;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:7px;padding:6px 8px;width:100%}
+label{display:block;font-size:12px;color:var(--muted);margin-bottom:3px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:600px){.grid2{grid-template-columns:1fr}}
+.field{margin-bottom:10px}
+fieldset{border:1px solid var(--line);border-radius:10px;padding:10px 12px 2px;margin:0 0 12px}
+legend{font-size:12px;color:var(--muted);padding:0 4px}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:14px}
+th,td{text-align:left;padding:5px 6px;border-bottom:1px solid var(--line)}
+th{font-size:12px;color:var(--muted);font-weight:600}
+td input{width:90px}
+td.bad input{border-color:var(--bad)}
+.msg{font-size:13px;margin-top:8px;min-height:1em}.msg.err{color:var(--bad)}.msg.ok{color:var(--ok)}
+.act{border-bottom:1px solid var(--line);padding:6px 0;font-size:13px}
+.act .t{color:var(--muted);font-size:12px}
+.act.fail{color:var(--bad)}
+.check{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--ink)}
+.check input{width:auto}
+.muted{color:var(--muted);font-size:13px}
+.badge{display:inline-block;font-size:12px;font-weight:600;padding:2px 8px;border-radius:999px;border:1px solid var(--line)}
+.badge.on{color:var(--ok);border-color:var(--ok)}.badge.off{color:var(--muted)}.badge.err{color:var(--bad);border-color:var(--bad)}
+.help{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.4}
+.hint{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:13px;margin:2px 0 10px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:13px;margin:10px 0}
+.kv dt{color:var(--muted)}.kv dd{margin:0;font-variant-numeric:tabular-nums}
+ol.steps{margin:0;padding-left:20px}
+ol.steps li{margin-bottom:10px}
+pre.code{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin:6px 0 0;
+  font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:pre-wrap;user-select:all}
+details summary{cursor:pointer;color:var(--muted);font-size:13px}
+input[type=range]{padding:0;border:0;background:none;accent-color:var(--accent)}
+.ticks{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:2px}
+.bar{height:6px;background:var(--line);border-radius:3px;position:relative;min-width:120px}
+.bar i{position:absolute;top:-3px;width:3px;height:12px;background:var(--accent);border-radius:2px}
+</style>
+</head>
+<body>
+<header>
+  <svg width="48" height="40" viewBox="0 0 48 40" aria-hidden="true">
+    <path d="M12 32a9 9 0 0 1 1.5-17.9A11 11 0 0 1 34.6 12 8.5 8.5 0 0 1 36 32Z"
+          fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" style="color:var(--accent)"/>
+  </svg>
+  <div><h1>RADclouds</h1>
+    <div class="sub">Drift an EcoTech Radion profile on a Neptune Apex like passing clouds</div></div>
+</header>
+<main>
+
+  <section class="card span">
+    <h2>Profile and virtual outlet</h2>
+    <div class="grid2">
+      <div class="field"><label for="profile">Profile (Radion type)</label><select id="profile"></select></div>
+      <div class="field"><label for="outlet">Virtual outlet that starts and stops the clouds</label><select id="outlet"></select></div>
+    </div>
+    <div class="grid2" style="margin-top:4px">
+      <div class="field">
+        <label for="speed">Cloud speed (size of each move): <b id="speedv">1×</b></label>
+        <input type="range" id="speed" min="1" max="3" step="0.5" value="1">
+        <div class="ticks"><span>1×</span><span>1.5×</span><span>2×</span><span>2.5×</span><span>3×</span></div>
+      </div>
+      <div class="field">
+        <label for="interval">Time between steps: <b id="intervalv">60 s</b></label>
+        <input type="range" id="interval" min="15" max="120" step="5" value="60">
+        <div class="ticks"><span>15 s</span><span>120 s</span></div>
+      </div>
+    </div>
+    <label class="check"><input type="checkbox" id="enabled"> Clouds enabled</label>
+    <details id="conn" style="margin-top:10px">
+      <summary>Apex connection</summary>
+      <div class="grid2" style="margin-top:10px">
+        <div class="field"><label for="host">Apex address</label><input id="host" placeholder="192.168.1.50"></div>
+        <div class="field"><label for="user">Username</label><input id="user" autocomplete="off" placeholder="admin (default)"></div>
+        <div class="field"><label for="pw">Password</label><input id="pw" type="password" autocomplete="new-password" placeholder="blank = 1234 (default)"></div>
+        <div class="field row" style="align-items:end"><button id="reload" type="button">Connect and load lists</button></div>
+      </div>
+    </details>
+    <div class="msg" id="connmsg"></div>
+  </section>
+
+  <section class="card span">
+    <h2>Set up the Apex (once)</h2>
+    <ol class="steps">
+      <li><b>Create the profile.</b> In Apex Fusion, add a profile of type <b>Radion</b> (for example <code id="i-prof">pfCloudyDay</code>)
+        and pick it above. Its colors and End intensity are the ones RADclouds moves. Start intensity is left alone.</li>
+      <li><b>Create the virtual outlet.</b> Add a virtual output (for example <code id="i-out-a">CloudyDay</code>) and pick it above.
+        Turning it ON starts the clouds; turning it OFF stops them. Give it a program or switch it by hand.</li>
+      <li><b>Point each Radion at the profile.</b> Add this line to the program of every Radion output that should follow the clouds,
+        below its normal <code>tdata</code> lines (a later line overrides an earlier one):
+        <pre class="code" id="i-code">If Output CloudyDay = ON Then pfCloudyDay</pre></li>
+      <li><b>Put the virtual switch where it can be turned on.</b> Add the virtual switch to the Apex Dashboard,
+        or add logic to control the switch's state, so the clouds actually start and stop.</li>
+    </ol>
+  </section>
+
+  <section class="card span">
+    <h2>Cloud range for each color</h2>
+    <div class="hint">Enter a <b>Min</b> and a <b>Max</b> for every row, 0 to 100. Either <b>Max minus Min is more than <span id="delta">15</span></b>
+      so the color drifts, or <b>Min and Max are the same</b> and that color is held at that value and never changes.</div>
+    <table>
+      <thead><tr><th>Color</th><th>Min</th><th>Max</th><th>Median start</th><th>Now on the Apex</th><th></th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <div class="row" style="margin-top:12px">
+      <button class="primary" id="save">Save</button>
+    </div>
+    <div class="msg" id="savemsg"></div>
+  </section>
+
+  <section class="card">
+    <h2>How it runs</h2>
+    <p class="muted" style="margin-top:0">When the virtual outlet turns <b>ON</b>, the profile is set to the median of each range. Then every
+      <b id="hr-int">60 seconds</b> every color and the End intensity each roll 1&ndash;5 on their own
+      (speed <b id="hr-speed">1×</b>):</p>
+    <table style="max-width:420px">
+      <tr><th>Roll</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+      <tr><th>Change</th><td id="mv1"></td><td id="mv2"></td><td id="mv3"></td><td id="mv4"></td><td id="mv5"></td></tr>
+    </table>
+    <p class="muted">At Min or Max, a move that would go past the edge is reversed. Anywhere else, a move that would go past
+      stops at the edge. All the new values are then written to the profile in one save.</p>
+  </section>
+
+  <section class="card">
+    <h2>Status</h2>
+    <div class="row"><span class="badge off" id="badge">…</span><span class="muted" id="engine"></span></div>
+    <dl class="kv" id="kv"></dl>
+    <div class="row">
+      <button id="medians" type="button">Set to median now</button>
+      <button id="step" type="button">Run one step now</button>
+    </div>
+    <div class="help">These two write to the chosen profile right away, whether or not the outlet is on. Use them to test.</div>
+    <div class="msg" id="actmsg"></div>
+  </section>
+
+  <section class="card span">
+    <h2>Activity</h2>
+    <div id="activity" class="muted">Nothing yet.</div>
+  </section>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+let cfg = null, opts = {profiles: [], outlets: []}, labels = [], lastValues = {}, dirty = false;
+
+async function api(path, body) {
+  const r = await fetch(path, body === undefined ? {} : {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body)});
+  const j = await r.json();
+  if (!r.ok) throw new Error(j.error || r.statusText);
+  return j;
+}
+function say(el, text, kind) { el.textContent = text || ''; el.className = 'msg' + (kind ? ' ' + kind : ''); }
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c])); }
+const med = (a, b) => Math.round((a + b) / 2);
+
+function fillSelect(sel, items, value, blank) {
+  sel.innerHTML = `<option value="">${blank}</option>` + items.map(i =>
+    `<option value="${esc(i.v)}">${esc(i.t)}</option>`).join('');
+  sel.value = value == null ? '' : String(value);
+}
+function drawLists() {
+  fillSelect($('profile'), opts.profiles.map(p => ({v: p.id, t: `${p.name}  (ID ${p.id})`})), cfg.profile_id, '— choose a profile —');
+  fillSelect($('outlet'), opts.outlets.map(o => ({v: o.did, t: `${o.name}  (${o.did})`})), cfg.virtual_did, '— choose a virtual outlet —');
+  instructions();
+}
+const fmtX = v => `${Number(v)}×`;
+function drawSpeed() {
+  const sp = parseFloat($('speed').value), iv = parseInt($('interval').value, 10);
+  $('speedv').textContent = fmtX(sp); $('hr-speed').textContent = fmtX(sp);
+  $('intervalv').textContent = `${iv} s`; $('hr-int').textContent = `${iv} seconds`;
+  for (const r of [1, 2, 3, 4, 5]) {
+    const m = Math.round((cfg.moves[r] || 0) * sp);
+    $('mv' + r).textContent = m === 0 ? 'none' : (m > 0 ? '+' + m : '−' + Math.abs(m));
+  }
+}
+function selName(sel) { const o = sel.selectedOptions[0]; return o && o.value ? o.textContent.replace(/\s+\(.*\)$/, '') : ''; }
+function instructions() {
+  const p = selName($('profile')) || 'pfCloudyDay', o = selName($('outlet')) || 'CloudyDay';
+  $('i-prof').textContent = p; $('i-out-a').textContent = o;
+  $('i-code').textContent = `If Output ${o} = ON Then ${p}`;
+}
+function drawRows() {
+  $('delta').textContent = cfg.min_delta;
+  $('rows').innerHTML = labels.map(c => {
+    const r = cfg.channels[c.key];
+    return `<tr data-k="${c.key}"><td>${esc(c.label)}</td>
+      <td><input type="number" min="0" max="100" step="1" class="mn" value="${r.min}"></td>
+      <td><input type="number" min="0" max="100" step="1" class="mx" value="${r.max}"></td>
+      <td class="md">${med(r.min, r.max)}</td><td class="now muted">–</td><td class="dl muted"></td></tr>`;
+  }).join('');
+  document.querySelectorAll('#rows input').forEach(i => i.addEventListener('input', () => { dirty = true; recalc(); }));
+  recalc(); showNow();
+}
+function recalc() {
+  let ok = true;
+  document.querySelectorAll('#rows tr').forEach(tr => {
+    const lo = parseInt(tr.querySelector('.mn').value, 10), hi = parseInt(tr.querySelector('.mx').value, 10);
+    const good = Number.isFinite(lo) && Number.isFinite(hi) && lo >= 0 && hi <= 100 &&
+      (hi === lo || hi - lo > cfg.min_delta);
+    tr.querySelector('.md').textContent = good ? med(lo, hi) : '–';
+    tr.querySelector('.dl').textContent = !Number.isFinite(lo + hi) ? '' : (hi === lo ? 'held' : `Δ ${hi - lo}`);
+    tr.querySelectorAll('td:nth-child(2),td:nth-child(3)').forEach(td => td.classList.toggle('bad', !good));
+    ok = ok && good;
+  });
+  $('save').disabled = !ok;
+  if (!ok) say($('savemsg'), `Every row needs Max minus Min of more than ${cfg.min_delta}, or Min and Max the same, within 0–100.`, 'err');
+  else if ($('savemsg').classList.contains('err')) say($('savemsg'), '');
+}
+function showNow() {
+  document.querySelectorAll('#rows tr').forEach(tr => {
+    const v = lastValues[tr.dataset.k];
+    tr.querySelector('.now').textContent = v == null ? '–' : v;
+  });
+}
+function readChannels() {
+  const out = {};
+  document.querySelectorAll('#rows tr').forEach(tr => {
+    out[tr.dataset.k] = {min: parseInt(tr.querySelector('.mn').value, 10), max: parseInt(tr.querySelector('.mx').value, 10)};
+  });
+  return out;
+}
+
+async function loadLists(quiet) {
+  say($('connmsg'), 'Connecting…');
+  try {
+    opts = await api('api/options');
+    drawLists();
+    say($('connmsg'), `Connected. ${opts.profiles.length} Radion profile(s), ${opts.outlets.length} virtual outlet(s).`, 'ok');
+  } catch (e) {
+    $('conn').open = true;
+    say($('connmsg'), quiet ? `Not connected: ${e.message}` : e.message, 'err');
+    drawLists();
+  }
+}
+async function save(patch) {
+  const body = {
+    apex: {host: $('host').value, username: $('user').value, password: $('pw').value},
+    enabled: $('enabled').checked,
+    profile_id: $('profile').value === '' ? null : parseInt($('profile').value, 10),
+    virtual_did: $('outlet').value,
+    speed: parseFloat($('speed').value),
+    interval_seconds: parseInt($('interval').value, 10),
+    channels: readChannels(), ...patch,
+  };
+  cfg = await api('api/config', body);
+  $('pw').value = '';
+  dirty = false;
+  return cfg;
+}
+
+$('save').onclick = async () => {
+  $('save').disabled = true;
+  try { await save(); say($('savemsg'), 'Saved.', 'ok'); drawRows(); refresh(); }
+  catch (e) { say($('savemsg'), e.message, 'err'); }
+  finally { recalc(); }
+};
+$('reload').onclick = async () => {
+  try { await save({channels: undefined}); } catch (e) { /* ranges may be mid-edit */ }
+  loadLists(false);
+};
+for (const id of ['profile', 'outlet']) $(id).onchange = async () => {
+  instructions();
+  try { await save({channels: undefined}); say($('connmsg'), 'Selection saved.', 'ok'); refresh(); }
+  catch (e) { say($('connmsg'), e.message, 'err'); }
+};
+for (const id of ['speed', 'interval']) {
+  $(id).addEventListener('input', drawSpeed);                       // live readout while dragging
+  $(id).addEventListener('change', async () => {                    // save on release
+    try { await save({channels: undefined}); say($('connmsg'), 'Speed settings saved.', 'ok'); refresh(); }
+    catch (e) { say($('connmsg'), e.message, 'err'); }
+  });
+}
+$('enabled').onchange = async () => { try { await save({channels: undefined}); refresh(); } catch (e) { say($('connmsg'), e.message, 'err'); } };
+
+async function act(path, btn, okText) {
+  btn.disabled = true; say($('actmsg'), 'Working…');
+  try {
+    if (dirty) throw new Error('Save your ranges first.');
+    const r = await api(path, {});
+    lastValues = r.values || {}; showNow();
+    say($('actmsg'), okText, 'ok'); refresh();
+  } catch (e) { say($('actmsg'), e.message, 'err'); }
+  finally { btn.disabled = false; }
+}
+$('medians').onclick = () => act('api/medians', $('medians'), 'Profile set to the median values.');
+$('step').onclick = () => act('api/step', $('step'), 'One step written to the profile.');
+
+function ago(iso) {
+  if (!iso) return '–';
+  const s = Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 1000));
+  return s < 90 ? `${s}s ago` : s < 5400 ? `${Math.round(s / 60)} min ago` : new Date(iso).toLocaleString();
+}
+async function refresh() {
+  let s;
+  try { s = await api('api/status'); } catch (e) { return; }
+  const eng = s.engine || {};
+  const badge = $('badge');
+  if (eng.engine === 'running' && eng.on) { badge.textContent = 'Clouds moving'; badge.className = 'badge on'; }
+  else if (eng.engine === 'running') { badge.textContent = 'Waiting for outlet ON'; badge.className = 'badge off'; }
+  else if (eng.engine === 'error') { badge.textContent = 'Problem'; badge.className = 'badge err'; }
+  else { badge.textContent = eng.engine || 'starting'; badge.className = 'badge off'; }
+  $('engine').textContent = eng.error || (s.missing ? s.missing : '');
+  const st = s.state || {};
+  lastValues = st.values || lastValues; showNow();
+  const rows = [
+    ['Virtual outlet', eng.outlet ? `${eng.outlet}${eng.on ? ' (on)' : ' (off)'}` : '–'],
+    ['Next step', eng.on && eng.next_step_in != null ? `in ${eng.next_step_in}s` : '–'],
+    ['Last step', ago(st.last_step_at)],
+    ['Last write', ago(st.last_write_at)],
+  ];
+  $('kv').innerHTML = rows.map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join('');
+  $('activity').innerHTML = (s.activity || []).length ? s.activity.map(a =>
+    `<div class="act ${a.ok ? '' : 'fail'}"><div class="t">${esc(new Date(a.at).toLocaleString())} · ${esc(a.source)}</div>${esc(a.message)}</div>`
+  ).join('') : 'Nothing yet.';
+}
+
+(async function init() {
+  cfg = await api('api/config');
+  labels = cfg.channel_labels;
+  $('host').value = cfg.apex.host; $('user').value = cfg.apex.username;
+  $('pw').placeholder = cfg.apex.has_password ? 'saved - leave blank to keep' : 'blank = 1234 (default)';
+  $('enabled').checked = cfg.enabled;
+  $('speed').value = cfg.speed; $('interval').value = cfg.interval_seconds;
+  drawSpeed();
+  drawRows(); drawLists();
+  await loadLists(true);
+  refresh(); setInterval(refresh, 5000);
+})();
+</script>
+</body>
+</html>
